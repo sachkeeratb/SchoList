@@ -5,17 +5,20 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 // Create a user schema, with a unique name, unique email, and password
-const UserSchema = new Schema({
-	name: {
-		type: String,
-		unique: true,
+const UserSchema = new Schema(
+	{
+		name: {
+			type: String,
+			unique: true,
+		},
+		email: {
+			type: String,
+			unique: true,
+		},
+		password: String,
 	},
-	email: {
-		type: String,
-		unique: true,
-	},
-	password: String,
-});
+	{ collection: 'users' }
+);
 
 // Create the user model
 const UserModel = mongoose.model('User', UserSchema);

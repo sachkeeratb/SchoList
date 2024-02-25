@@ -1,6 +1,4 @@
-/* eslint-disable react/prop-types */
-
-// To create the user and give them values
+// To give the user context
 import { createContext, useState, useEffect } from 'react';
 
 // To make API requests

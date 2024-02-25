@@ -55,7 +55,7 @@ export default function Signup() {
 				navigate('/login');
 			}
 		} catch (error) {
-			/* Ignore if there are any errors */
+			console.log(error);
 		}
 	};
 
@@ -122,8 +122,6 @@ export default function Signup() {
 							setData({ ...data, password: event.target.value })
 						}
 					/>
-
-					{/* TODO: Add confirm password */}
 
 					{/* Submit the form */}
 					<button

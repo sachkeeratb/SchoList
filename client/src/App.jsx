@@ -9,9 +9,11 @@ import About from './pages/About.jsx';
 import Help from './pages/Help.jsx';
 import Settings from './pages/Settings.jsx';
 import Contacts from './pages/Contacts.jsx';
+import AddContact from './pages/AddContact.jsx'
 
 // Import the navigation bar
 import NavBar from './components/NavBar.jsx';
+import Footer from './components/Footer.jsx'
 
 // To provide context for the user
 import { UserContextProvider } from '../context/UserContext.jsx';
@@ -67,6 +69,11 @@ export default function App() {
 						element={<Contacts />}
 					/>
 
+					<Route 
+							path='/addcontact'
+							element={<AddContact />}
+					/>
+
 					<Route
 						path='/help'
 						element={<Help />}
@@ -77,6 +84,7 @@ export default function App() {
 						element={<Settings />}
 					/>
 				</Routes>
+				<Footer />
 			</UserContextProvider>
 		</>
 	);

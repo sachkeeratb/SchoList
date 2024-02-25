@@ -5,8 +5,23 @@
 ## About
 SchoList allows various schools's Career and Technical Education Department to collect and store information about business and community partners. We include information on at over 25 different partners with details such as the type of organization, contact information, and more! SchoList enables users to screate, search, and filter the information as needed.
 
-## How to run
-TBA
+## How To Run
+### Clone
+```bash
+git clone https://github.com/sachkeeratb/SchoList.git .
+```
+
+### Run Frontend
+```bash
+cd client
+npm run dev
+```
+
+### Run Backend
+```bash
+cd server
+npm start
+```
 
 ## Libraries Used
 TBA

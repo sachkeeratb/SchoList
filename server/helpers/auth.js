@@ -5,7 +5,7 @@ const bcrypt = require('../node_modules/bcrypt');
 const hashPassword = (password) => {
 	// Return a promise
 	return new Promise((resolve, reject) => {
-		// Generate the encryption with a level of 12
+		// Generate the encryption with a level of 12 (default is 10)
 		bcrypt.genSalt(12, (err, salt) => {
 			if (err) {
 				reject(err);

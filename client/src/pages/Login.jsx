@@ -56,7 +56,7 @@ export default function Login() {
 			// Set a token
 			localStorage.setItem('token-info', JSON.stringify(data));
 		} catch (error) {
-			/* Ignore if there are any errors */
+			console.log(error);
 		}
 	};
 

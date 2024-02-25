@@ -1,16 +1,14 @@
-// Create the user
+// Get the user model
 const User = require('../models/User');
+
+// Get the contact model
+const Contact = require('../models/Contact');
 
 // Get the password hashing
 const { hashPassword, comparePassword } = require('../helpers/auth');
 
 // Get the web token
 const WebToken = require('../node_modules/jsonwebtoken');
-
-// Testing endpoint
-const test = (req, res) => {
-	res.json('Test works!');
-};
 
 // Signup Endpoint
 const signupUser = async (req, res) => {
@@ -51,16 +49,16 @@ const signupUser = async (req, res) => {
 		const hashedPass = await hashPassword(password);
 
 		// Create the user
-		const user = await User.create({
+		const createUser = await User.create({
 			name,
 			email,
 			password: hashedPass,
 		});
 
 		// Return the user
-		return res.json(user);
+		return res.json(createUser);
 	} catch (error) {
-		/* Ignore if there are any errors */
+		console.log(error);
 	}
 };
 
@@ -71,8 +69,8 @@ const loginUser = async (req, res) => {
 		const { email, password } = req.body;
 
 		// Check if the user exists
-		const user = await User.findOne({ email });
-		if (!user) {
+		const logUser = await User.findOne({ email });
+		if (!logUser) {
 			return res.json({
 				error: 'No user found.',
 			});
@@ -86,20 +84,20 @@ const loginUser = async (req, res) => {
 		}
 
 		// Check if the passwords match
-		const match = await comparePassword(password, user.password);
+		const match = await comparePassword(password, logUser.password);
 		if (match) {
 			// Sign the webtoken
 			WebToken.sign(
 				{
-					id: user._id,
-					email: user.email,
-					name: user.name,
+					id: logUser._id,
+					email: logUser.email,
+					name: logUser.name,
 				},
 				process.env.WEBTOKEN_SECRET,
 				{},
 				(error, token) => {
 					if (error) throw error;
-					res.cookie('token', token).json(user);
+					res.cookie('token', token).json(logUser);
 				}
 			);
 		}
@@ -111,7 +109,7 @@ const loginUser = async (req, res) => {
 			});
 		}
 	} catch (error) {
-		/* Ignore if there are any errors */
+		console.log(error);
 	}
 };
 
@@ -160,15 +158,143 @@ const deleteAccount = async (req, res) => {
 			user: deletedUser,
 		});
 	} catch (error) {
-		/* Ignore if there are any errors */
+		console.log(error);
+	}
+};
+
+// User update endpoint
+const updateAccount = async (req, res) => {
+	const id = req.params.id;
+
+	// Get the hashed password
+	const hashedPass = await hashPassword(req.body.password);
+
+	try {
+		// Update the user
+		const updatedUser = await User.findByIdAndUpdate(
+			id,
+			{
+				name: req.body.name,
+				email: req.body.email,
+				password: hashedPass,
+			},
+			{ new: true }
+		);
+
+		// Return a message and the updated user
+		return res.json({
+			message: 'User updated successfully!',
+			updatedUser,
+		});
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// Contact creation endpoint
+const createContact = async (req, res) => {
+	// Get the user's id
+	const userId = req.params.id;
+	try {
+		// Create the contact
+		const newContact = await Contact.create(req.body);
+
+		// Get the user
+		const user = await User.findById(userId);
+
+		// Create the contact with the user
+		user.contacts.create(newContact);
+
+		// Save the user
+		await user.save();
+
+		// Return the new contact with a good message
+		return res.json({
+			message: 'Contact created successfully!',
+			newContact,
+		});
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// All contacts fetching endpoint
+const getContacts = async (req, res) => {
+	try {
+		// Get all the contacts
+		const allContacts = await Contact.find({});
+
+		// Return the contacts
+		return res.json(allContacts);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// Singular contact fetching endpoint
+const getContact = async (req, res) => {
+	// Get the contact's id
+	const id = req.params.id;
+	try {
+		// Get the contact through it's id
+		const contact = await Contact.findById(id);
+
+		// Return the contact
+		return res.json(contact);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// Update contact endpoint
+const updateContact = async (req, res) => {
+	// Get the contact's id
+	const id = req.params.id;
+	try {
+		// Update the contact with its new info
+		const updatedContact = await Contact.findByIdAndUpdate(id, req.body);
+
+		// Return a success message with the updated contact
+		return res.json({
+			message: 'Contact updated successfully!',
+			updatedContact,
+		});
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// Delete contact endpoint
+const deleteContact = async (req, res) => {
+	// Get the contact's id
+	const id = req.params.id;
+
+	try {
+		// Delete the contact from their id
+		await Contact.findByIdAndDelete(id);
+
+		// Return a success message
+		return res.json({
+			message: 'Contact successfully deleted.',
+		});
+	} catch (error) {
+		console.log(error);
+		return res.json({
+			error: 'Unable to delete contact.',
+		});
 	}
 };
 
 // Export all endpoints
 module.exports = {
-	test,
 	signupUser,
 	loginUser,
 	getProfile,
 	deleteAccount,
+	updateAccount,
+	createContact,
+	getContacts,
+	getContact,
+	updateContact,
+	deleteContact,
 };

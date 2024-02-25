@@ -1,10 +1,33 @@
 // To redirect users to the GitHub repository if they click the designated button for it
 import { Link } from 'react-router-dom';
 
+// For rendering certain functions better
+import { useEffect } from 'react';
+
+// For the carousel
+import Carousel from '../components/Carousel.jsx';
+
 // The Home Page
 export default function Home() {
+	// The locations of each picture
+	const pictures = [
+		'src/assets/shihan_manav.png',
+		'src/assets/me.png',
+		'src/assets/pranav.png',
+		'src/assets/nimay.png',
+		'src/assets/parth.png',
+		'src/assets/vansh.png',
+	];
+
+	// Load the pictures in
+	useEffect(() => {
+		pictures.forEach((picture) => {
+			new Image().src = picture;
+		});
+	}, []);
+
 	return (
-		<>
+		<div className='overflow-hidden max-h-screen'>
 			<div className='w-1/2 flex text-left min-h-full flex-1 flex-col justify-left px-6 lg:px-8'>
 				<div className='sm:mx-0 sm:w-full sm:max-w-sm'>
 					{/* The title of the website, along with its slogan */}
@@ -66,6 +89,11 @@ export default function Home() {
 					</div>
 				</form>
 			</div>
-		</>
+			<div></div>
+			<div className='scale-75 h-screen flex items-right justify-center -translate-y-[30rem] translate-x-72'>
+				{/* The carousel */}
+				<Carousel images={pictures} />
+			</div>
+		</div>
 	);
 }

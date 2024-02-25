@@ -4,11 +4,16 @@ const cors = require('cors');
 
 // Get the controller endpoints
 const {
-	test,
 	signupUser,
 	loginUser,
 	getProfile,
 	deleteAccount,
+	updateAccount,
+	createContact,
+	getContacts,
+	getContact,
+	updateContact,
+	deleteContact,
 } = require('../controllers/controllers');
 
 // Create the router
@@ -22,12 +27,19 @@ router.use(
 	})
 );
 
-// Connect the endpoints with their locations
-router.get('/', test);
+// Connect the user endpoints with their locations
 router.post('/signup', signupUser);
 router.post('/login', loginUser);
 router.get('/profile', getProfile);
 router.delete('/delete/:id', deleteAccount);
+router.put('/update/:id', updateAccount);
+
+// Connect the contact endpoints with their locations
+router.post('/contact/create', createContact);
+router.get('/contact/get', getContacts);
+router.get('/contact/get/:id', getContact);
+router.put('/contact/update/:id', updateContact);
+router.delete('/contact/delete/:id', deleteContact);
 
 // Export the router
 module.exports = router;

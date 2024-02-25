@@ -1,7 +1,7 @@
 // The About Page
 export default function About() {
 	return (
-		<div className='overflow-hidden max-h-fit'>
+		<div className='overflow-hidden max-h-fit max-h-screen'>
 			<div className='flex text-left min-h-half flex-1 flex-col justify-centre px-6 lg:px-8'>
 				<div className='sm:mx-0 sm:w-half sm:max-w-sm'>
 					{/* Title: Where */}
