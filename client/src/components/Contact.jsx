@@ -71,6 +71,7 @@ const Contact = ({ contact }) => {
 
 				<div className='p-3 text-sm flex flex-col gap-1'>
 					{/* Show the information of the contact */}
+<<<<<<< HEAD
 					<p>Name: {fullName}</p>
 					<p>Email: {email}</p>
 					<p>Phone No.: {phoneNum}</p>
@@ -80,6 +81,29 @@ const Contact = ({ contact }) => {
 					</p>
 					<p>Resources available: {resourcesAvailable}</p>
 					<p>Description: {description}</p>
+=======
+					<p>
+						<b>Name:</b> {fullName}
+					</p>
+					<p>
+						<b>Email:</b> {email}
+					</p>
+					<p>
+						<b>Phone No.:</b> {phoneNum}
+					</p>
+					<p>
+						<b>Date of Birth:</b> {moment(birth).format('l')}
+					</p>
+					<p>
+						<b>Organization:</b> {org}<br />{orgType ? 'Non-Profit' : 'For-Profit'}
+					</p>
+					<p>
+						<b>Resources available:</b> {resourcesAvailable}
+					</p>
+					<p>
+						<b>Description:</b> {description}
+					</p>
+>>>>>>> 129a444 (final commit)
 
 					<div className='p-3 flex items-center justify-end gap-2'>
 						<p>

@@ -109,11 +109,13 @@ export default function Contacts() {
 					{data?.filter((i) => {
 							// If the filter is a certain thing, show that certain thing along wiht what the user searched
 							if (filter === 'fullName') {
-								return search.toLowerCase() === ''
+								return search === ''
 									? i
-									: i.fullName.toLowerCase().includes(search);
+									: i.fullName.toLowerCase().includes(search.toLowerCase());
 							} else if (filter === 'email') {
-								return search === '' ? i : i.email.includes(search);
+								return search === ''
+									? i
+									: i.email.toLowerCase().includes(search.toLowerCase());
 							} else if (filter === 'phoneNum') {
 								return search === ''
 									? i
@@ -123,7 +125,9 @@ export default function Contacts() {
 									? i
 									: moment(i.birth).format('l').includes(search);
 							} else if (filter === 'org') {
-								return search === '' ? i : i.org.toLowerCase().includes(search);
+								return search === ''
+									? i
+									: i.org.toLowerCase().includes(search.toLowerCase());
 							} else if (filter === 'for-profit') {
 								return !i.orgType;
 							} else if (filter === 'non-profit') {

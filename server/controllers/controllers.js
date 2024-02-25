@@ -199,15 +199,6 @@ const createContact = async (req, res) => {
 		// Create the contact
 		const newContact = await Contact.create(req.body);
 
-		// Get the user
-		const user = await User.findById(userId);
-
-		// Create the contact with the user
-		user.contacts.create(newContact);
-
-		// Save the user
-		await user.save();
-
 		// Return the new contact with a good message
 		return res.json({
 			message: 'Contact created successfully!',

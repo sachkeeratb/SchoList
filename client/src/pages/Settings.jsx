@@ -69,6 +69,16 @@ export default function Contacts() {
 
 	return (
 		<>
+			<div>
+				<button
+					className='absolute rounded-lg bg-indigo-900 hover:bg-indigo-600 font-semibold top-[7rem] left-[2rem] button px-5 text-white text-sm'
+					onClick={() => navigate(-1)}
+				>
+					{/* Go back a page if you accidentally came here */}
+					Go Back
+				</button>
+			</div>
+			
 			<h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-indigo-900'>
 				{/* Title */}
 				User Controls

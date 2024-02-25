@@ -10,7 +10,7 @@ SchoList allows various schools's Career and Technical Education Department to c
 ```bash
 git clone https://github.com/sachkeeratb/SchoList.git .
 ```
-Follow The Instructions In .env.example and rename it to .env
+
 ### Run Frontend
 ```bash
 cd client
